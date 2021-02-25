@@ -4,8 +4,6 @@ const Manager = require('./classes/manager');
 const Intern = require('./classes/intern');
 const Engineer = require('./classes/engineer');
 
-// now I can create new manager....
-
 const generalQuestions = [
     {
         type: 'input',
@@ -71,7 +69,7 @@ function writeToFile(fileName,data){
       });
 
 };
-
+// Where do I implement my teamBuild function so that it runs after all questions are answered
 function teamBuild(){
 
     inquirer
@@ -83,8 +81,8 @@ function teamBuild(){
                 break;
         
             case 'Build team':
-                // make sure to add parameters to writeToFile
-                writeToFile();   
+                // make sure to add parameters to writeToFile. What should I pass for data? 
+                writeToFile('team.html', generateMarkdown(data));   
                 break;
             default:
                 break;
@@ -94,53 +92,66 @@ function teamBuild(){
 
 function startQuestions(){
 
-    // Would I need some sort of if else statement dependent on data.role? So that depending on the role of the person it can ask appropriate questions?
     inquirer
     .prompt(generalQuestions)
     .then(generalAnswers => {
         console.log(generalAnswers);
 
+
+        // switch (generalAnswers.role) {
+        //     case value: 'Manager'
+        //         inquirer
+        //         .prompt(managerQuestions)
+        //         .then(managerAnswer => {
+        //             console.log(managerAnswer);
+        //         })
+        //         break;
+
+        //     case value: 'Engineer' 
+        //         inquirer
+        //         .prompt(engineerQuestions)
+        //         .then(engineerAnswer => {
+        //             console.log(engineerAnswer);
+        //         })
+
+        //     case value: 'Intern'
+        //         inquirer
+        //         .prompt(internQuestions)
+        //         .then(internAnswer =>{
+        //             console.log(internAnswer);
+        //         })
+        
+        //     default:
+        //         break;
+        // }
+
         if (generalAnswers.role === 'Manager') {
             inquirer
             .prompt(managerQuestions)
             .then(managerAnswer =>{
-                console.log(managerAnswer);
-                console.log(generalAnswers);
+                const teamManager = new Manager(generalAnswers.name,generalAnswers.id,generalAnswers.email,managerAnswer.officeNumber)
+                console.log(teamManager);
             })
-        } 
-        // else if(){
-        //     console.log(managerQuestions);
-        // }
-
-
-
-
+        } else if (generalAnswers.role === 'Engineer'){
+            inquirer
+            .prompt(engineerQuestions)
+            .then(engineerAnswer =>{
+                const teamEngineer = new Engineer(generalAnswers.name,generalAnswers.id,generalAnswers.email,engineerAnswer.gitHub)
+                console.log(teamEngineer);
+            })
+        } else {
+            inquirer
+            .prompt(internQuestions)
+            .then(internAnswer =>{
+                const teamIntern = new Intern(generalAnswers.name,generalAnswers.id,generalAnswers.email,internAnswer.school)
+                console.log(teamIntern);
+            })
+        }
 
     })
 
- 
 
-//     if (generalQuestions[3].choices === generalQuestions[3].choices[1]) {
-//         inquirer
-//         .prompt(engineerQuestions)
-//         .then((engineerAnswer =>{
-//             const {gitHub} = engineerAnswer
-//             console.log(engineerAnswer);
-//         }))
-//     }
 
-//     if (generalQuestions[3].choices === generalQuestions[3].choices[2]) {
-//         inquirer
-//         .prompt(internQuestions)
-//         .then((internAnswer =>{
-//             const {school} = internAnswer
-//             console.log(internAnswer);
-
-//     }))
-// }
 };
 
 startQuestions();
-
-
-// Would I need to module.exports = index? So that I can use it for my classes? Or do I need to require employee classes?

@@ -10,12 +10,12 @@ class Employee {
     }
     getId(){
 
-        console.log(this.id)
+        return this.id
 
     }
     getEmail(){
 
-        console.log(this.email)
+        return this.email
 
     }
     getRole(){
