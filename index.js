@@ -1,8 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./generateMarkdown');
 const Manager = require('./classes/manager');
 const Intern = require('./classes/intern');
 const Engineer = require('./classes/engineer');
+
+let registeredEmployees = [];
 
 const generalQuestions = [
     {
@@ -69,7 +72,7 @@ function writeToFile(fileName,data){
       });
 
 };
-// Where do I implement my teamBuild function so that it runs after all questions are answered
+
 function teamBuild(){
 
     inquirer
@@ -81,8 +84,8 @@ function teamBuild(){
                 break;
         
             case 'Build team':
-                // make sure to add parameters to writeToFile. What should I pass for data? 
-                writeToFile('team.html', generateMarkdown(data));   
+                console.log(registeredEmployees);
+                writeToFile('team.html', generateMarkdown(registeredEmployees));   
                 break;
             default:
                 break;
@@ -97,47 +100,23 @@ function startQuestions(){
     .then(generalAnswers => {
         console.log(generalAnswers);
 
-
-        // switch (generalAnswers.role) {
-        //     case value: 'Manager'
-        //         inquirer
-        //         .prompt(managerQuestions)
-        //         .then(managerAnswer => {
-        //             console.log(managerAnswer);
-        //         })
-        //         break;
-
-        //     case value: 'Engineer' 
-        //         inquirer
-        //         .prompt(engineerQuestions)
-        //         .then(engineerAnswer => {
-        //             console.log(engineerAnswer);
-        //         })
-
-        //     case value: 'Intern'
-        //         inquirer
-        //         .prompt(internQuestions)
-        //         .then(internAnswer =>{
-        //             console.log(internAnswer);
-        //         })
-        
-        //     default:
-        //         break;
-        // }
-
         if (generalAnswers.role === 'Manager') {
             inquirer
             .prompt(managerQuestions)
             .then(managerAnswer =>{
                 const teamManager = new Manager(generalAnswers.name,generalAnswers.id,generalAnswers.email,managerAnswer.officeNumber)
                 console.log(teamManager);
+                registeredEmployees.push(teamManager);
+                teamBuild();
             })
-        } else if (generalAnswers.role === 'Engineer'){
+        } else if (generalAnswers.role === 'Engineer') {
             inquirer
             .prompt(engineerQuestions)
             .then(engineerAnswer =>{
                 const teamEngineer = new Engineer(generalAnswers.name,generalAnswers.id,generalAnswers.email,engineerAnswer.gitHub)
                 console.log(teamEngineer);
+                registeredEmployees.push(teamEngineer);
+                teamBuild();
             })
         } else {
             inquirer
@@ -145,13 +124,15 @@ function startQuestions(){
             .then(internAnswer =>{
                 const teamIntern = new Intern(generalAnswers.name,generalAnswers.id,generalAnswers.email,internAnswer.school)
                 console.log(teamIntern);
+                registeredEmployees.push(teamIntern);
+                teamBuild();
             })
         }
 
-    })
-
-
+    })   
 
 };
 
+
 startQuestions();
+
