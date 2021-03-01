@@ -2,25 +2,26 @@ const managerCard = (manager) => {
 
     return ` 
     <div class="col-sm-3 mt-5">
-    <div class="card">
-    <div class="card-header">
+    <div class="card border border-2">
+    <div class="card-header bg-primary bg-gradient">
         <div class="row">
-            ${manager.name}
-        </div>
-        <div class="row">
-            ${manager.getRole()}
+            <div class="col-4"><i class="fas fa-user-tie fs-1"></i></div>
+            <div class="col">
+                <div class="row">${manager.name}</div>
+                <div class="row">${manager.getRole()}</div>
+            </div>
         </div>
     </div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item">
-                ${manager.id}
+                ID: ${manager.id}
             </li>
             <li class="list-group-item">
-                ${manager.email}
+                Email: ${manager.email}
             </li>
             <li class="list-group-item">
-                ${manager.officeNumber}
+                Office Number: ${manager.officeNumber}
             </li>
         </ul>
     </div>
@@ -32,25 +33,26 @@ const engineerCard = (engineer) => {
 
     return `    
     <div class="col-sm-3 mt-5">                
-    <div class="card">
-    <div class="card-header">
+    <div class="card border border-2">
+    <div class="card-header bg-primary bg-gradient">
         <div class="row">
-            ${engineer.name}
-        </div>
-        <div class="row">
-            ${engineer.getRole()}
+            <div class="col-4"><i class="fas fa-laptop-code fs-1"></i></div>
+            <div class="col">
+                <div class="row">${engineer.name}</div>
+                <div class="row">${engineer.getRole()}</div>
+            </div>
         </div>
     </div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item">
-                ${engineer.id}
+                ID: ${engineer.id}
             </li>
             <li class="list-group-item">
-                ${engineer.email}
+                Email: ${engineer.email}
             </li>
             <li class="list-group-item">
-                ${engineer.gitHub}
+                GitHub: ${engineer.gitHub}
             </li>
         </ul>
     </div>
@@ -62,25 +64,26 @@ const internCard = (intern) => {
 
     return `  
     <div class="col-sm-3 mt-5">                  
-    <div class="card">
-    <div class="card-header">
+    <div class="card border border-2">
+    <div class="card-header bg-primary bg-gradient">
         <div class="row">
-            ${intern.name}
-        </div>
-        <div class="row">
-            ${intern.getRole()}
+            <div class="col-4"><i class="fas fa-graduation-cap fs-1"></i></div>
+            <div class="col">
+                <div class="row">${intern.name}</div>
+                <div class="row">${intern.getRole()}</div>
+            </div>
         </div>
     </div>
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item">
-                ${intern.id}
+                ID: ${intern.id}
             </li>
             <li class="list-group-item">
-                ${intern.email}
+                Email: ${intern.email}
             </li>
             <li class="list-group-item">
-                ${intern.school}
+                School: ${intern.school}
             </li>
         </ul>
     </div>
@@ -94,19 +97,21 @@ function generateMarkdown(data){
     console.log(data);
 
     let employees = []
+    let managerName = []
 
     data.forEach(employee => {
 
         
         if (employee.getRole() === "Manager") {
-            
             let x = managerCard(employee);
+            managerName.push(employee.name)
             employees.push(x);
 
         } else if (employee.getRole() === "Engineer"){
             
             let y = engineerCard(employee);
             employees.push(y);
+
         } else {
 
             let z = internCard(employee);
@@ -124,13 +129,14 @@ function generateMarkdown(data){
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/bda962699d.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">    
         <title>Team Profile Generator</title>
     </head>
-    <body>
+    <body class="bg-dark">
     
         <div class="row">
-            <h1 class='display-1 text-center bg-dark text-white'>Team Profile Generator</h1>
+            <h1 class='display-1 text-center bg-success bg-gradient'>${managerName}'s Team</h1>
         </div>
     
     
