@@ -84,7 +84,6 @@ function teamBuild(){
                 break;
         
             case 'Build team':
-                console.log(registeredEmployees);
                 writeToFile('team.html', generateMarkdown(registeredEmployees));   
                 break;
             default:
@@ -98,7 +97,6 @@ function startQuestions(){
     inquirer
     .prompt(generalQuestions)
     .then(generalAnswers => {
-        console.log(generalAnswers);
 
         if (generalAnswers.role === 'Manager') {
             inquirer

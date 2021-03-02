@@ -94,8 +94,6 @@ const internCard = (intern) => {
 
 function generateMarkdown(data){
 
-    console.log(data);
-
     let employees = []
     let managerName = []
 
