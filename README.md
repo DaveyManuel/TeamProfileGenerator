@@ -12,7 +12,7 @@ https://github.com/DaveyManuel/TeamProfileGenerator
 
 Attached is a screen recorded video of the final application:
 
-
+https://youtu.be/j1H6g9aaJJY
 
 ## Logic
 
